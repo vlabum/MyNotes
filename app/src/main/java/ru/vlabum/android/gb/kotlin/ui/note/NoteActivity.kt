@@ -4,27 +4,27 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.activity_note.*
 import ru.vlabum.android.gb.kotlin.R
 import ru.vlabum.android.gb.kotlin.data.entity.Note
+import ru.vlabum.android.gb.kotlin.ui.base.BaseActivity
 import ru.vlabum.android.gb.kotlin.ui.common.TextWatcherImpl
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NoteActivity : AppCompatActivity() {
+class NoteActivity : BaseActivity<Note?, NoteViewState>() {
 
     companion object {
 
         private val EXTRA_NOTE = NoteActivity::class.java.name + "extra.NOTE"
         private const val DATE_TIME_FORMAT = "dd.MM.yy HH:mm"
 
-        fun start(context: Context, note: Note? = null) {
+        fun start(context: Context, noteId: String? = null) {
             val intent = Intent(context, NoteActivity::class.java).apply {
-                note?.let { putExtra(EXTRA_NOTE, note) }
+                noteId?.let { putExtra(EXTRA_NOTE, noteId) }
             }
             context.startActivity(intent)
         }
@@ -32,7 +32,22 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private var note: Note? = null
-    lateinit var viewModel: NoteViewModel
+    override val layoutRes: Int = R.layout.activity_note
+    override val viewModel: NoteViewModel by lazy {
+        ViewModelProviders.of(this).get(NoteViewModel::class.java)
+    }
+
+    override fun renderData(data: Note?) {
+        this.note = data
+        supportActionBar?.title = if (this.note != null) {
+            SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault()).format(note!!.lastChanged)
+        } else {
+            getString(R.string.newNote)
+        }
+
+        initView()
+    }
+
     private val textWatcher = TextWatcherImpl { saveNote() }
 
 //    val textWatcher = object : TextWatcher {
@@ -43,10 +58,10 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_note)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        setContentView(R.layout.activity_note)
 
-        viewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
-        note = intent.getParcelableExtra(EXTRA_NOTE)
+        val noteId = intent.getStringExtra(EXTRA_NOTE)
 
         supportActionBar?.title = note?.let {
             SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault()).format(it.lastChanged)
@@ -54,7 +69,12 @@ class NoteActivity : AppCompatActivity() {
             getString(R.string.newNote)
         }
 
-        initView()
+        noteId?.let {
+            viewModel.loadNote(it)
+        } ?: let {
+            supportActionBar?.title = getString(R.string.newNote)
+        }
+
     }
 
     private fun initView() {

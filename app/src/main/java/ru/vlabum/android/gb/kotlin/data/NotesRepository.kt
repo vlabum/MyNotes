@@ -1,12 +1,19 @@
 package ru.vlabum.android.gb.kotlin.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import ru.vlabum.android.gb.kotlin.data.entity.Note
-import java.util.*
+import ru.vlabum.android.gb.kotlin.data.provider.FireStoreDataPrivider
+import ru.vlabum.android.gb.kotlin.data.provider.RemoteDataProvider
 
 object NotesRepository {
 
+
+    private val remoteProvider: RemoteDataProvider = FireStoreDataPrivider()
+
+    fun getNotes() = remoteProvider.subscribeToAllNotes()
+    fun saveNote(note: Note) = remoteProvider.saveNote(note)
+    fun getNoteById(id: String) = remoteProvider.getNoteById(id)
+
+    /*
     private val notesLiveData = MutableLiveData<List<Note>>()
 
     var _notes = mutableListOf(
@@ -73,5 +80,6 @@ object NotesRepository {
         get() {
             return _notes
         }
+        */
 }
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "481182042086",
+    "firebase_url": "https://mynotes-f5953.firebaseio.com",
+    "project_id": "mynotes-f5953",
+    "storage_bucket": "mynotes-f5953.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481182042086:android:61eb348bbbfa8afc",
+        "android_client_info": {
+          "package_name": "ru.vlabum.android.gb.kotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481182042086-8hptlstkgq1e91lvouv3f3qpdic0eht2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh8UKRdUOxpVbpWe1gq3QpnpbgDyGFp8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481182042086-8hptlstkgq1e91lvouv3f3qpdic0eht2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

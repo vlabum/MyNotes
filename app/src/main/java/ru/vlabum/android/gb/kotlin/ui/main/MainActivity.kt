@@ -1,5 +1,7 @@
 package ru.vlabum.android.gb.kotlin.ui.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,6 +12,12 @@ import ru.vlabum.android.gb.kotlin.ui.base.BaseActivity
 import ru.vlabum.android.gb.kotlin.ui.note.NoteActivity
 
 class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
+
+    companion object {
+        fun start(context: Context) = Intent(context, MainActivity::class.java).run {
+            context.startActivity(this)
+        }
+    }
 
     override fun renderData(data: List<Note>?) {
         data?.let {

@@ -1,4 +1,4 @@
-package ru.vlabum.android.gb.kotlin.data.model
+package ru.vlabum.android.gb.kotlin.model
 
 sealed class NoteResult {
     data class Success<out T>(val data: T) : NoteResult()

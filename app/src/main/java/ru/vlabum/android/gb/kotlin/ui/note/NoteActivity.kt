@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.activity_note.*
 import ru.vlabum.android.gb.kotlin.R
+import ru.vlabum.android.gb.kotlin.common.format
+import ru.vlabum.android.gb.kotlin.common.getColorInt
 import ru.vlabum.android.gb.kotlin.data.entity.Note
 import ru.vlabum.android.gb.kotlin.ui.base.BaseActivity
 import ru.vlabum.android.gb.kotlin.ui.common.TextWatcherImpl
@@ -40,7 +42,7 @@ class NoteActivity : BaseActivity<Note?, NoteViewState>() {
     override fun renderData(data: Note?) {
         this.note = data
         supportActionBar?.title = if (this.note != null) {
-            SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault()).format(note!!.lastChanged)
+            note!!.lastChanged.format(DATE_TIME_FORMAT)
         } else {
             getString(R.string.newNote)
         }
@@ -81,17 +83,7 @@ class NoteActivity : BaseActivity<Note?, NoteViewState>() {
         note?.let { note ->
             et_title.setText(note.title)
             et_text.setText(note.text)
-            val color = when (note.color) {
-                Note.Color.WHITE -> R.color.white
-                Note.Color.YELOW -> R.color.yellow
-                Note.Color.GREEN -> R.color.green
-                Note.Color.BLUE -> R.color.blue
-                Note.Color.RED -> R.color.red
-                Note.Color.VIOLET -> R.color.violet
-                Note.Color.PINK -> R.color.pink
-            }
-
-            toolbar.setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
+            toolbar.setBackgroundColor(ResourcesCompat.getColor(resources, note.color.getColorInt(this), null))
         }
 
         et_title.addTextChangedListener(textWatcher)

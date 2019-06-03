@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import ru.vlabum.android.gb.kotlin.data.NotesRepository
 import ru.vlabum.android.gb.kotlin.data.entity.Note
-import ru.vlabum.android.gb.kotlin.data.model.NoteResult
+import ru.vlabum.android.gb.kotlin.model.NoteResult
 import ru.vlabum.android.gb.kotlin.ui.base.BaseViewModel
 
 class NoteViewModel : BaseViewModel<Note?, NoteViewState>() {

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "481182042086-tiqh614pjrioilsmk2aehmkhvoo5t5h4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.vlabum.android.gb.kotlin",
+            "certificate_hash": "14796d05cb5e8f53064891da8a07fe35f44d9f77"
+          }
+        },
+        {
           "client_id": "481182042086-8hptlstkgq1e91lvouv3f3qpdic0eht2.apps.googleusercontent.com",
           "client_type": 3
         }
